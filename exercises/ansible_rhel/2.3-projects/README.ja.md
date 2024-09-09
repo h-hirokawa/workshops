@@ -14,11 +14,11 @@
 
 ## 目的
 
-Ansible 自動コントローラー **Project** は、AnsiblePlaybook の論理的なコレクションです。Playbook は、Git、Subversion などの自動コントローラーがサポートするソースコード管理 (SCM) システムに配置することで管理できます。
+Ansible Automation Controller **プロジェクト** は、AnsiblePlaybook の論理的なコレクションです。Playbook は、Git、Subversion などのAutomation Controller がサポートするソースコード管理 (SCM) システムに配置することで管理できます。
 
 この演習では、以下について説明します。
 
-* Ansible 自動コントローラープロジェクトの概要と利用
+* Ansible Automation Controller プロジェクトの概要と利用
 * Git リポジトリーに保存されている AnsiblePlaybook の使用
 * Ansible ジョブテンプレートの作成と使用
 
@@ -72,11 +72,11 @@ Apache Web サーバーをインストールする Playbook が既に **rhel/apa
 >
 > 作成した Playbook の違いをメモしてください。最も重要なのは、`become` がなく、`hosts` が `all` に設定されていることです。
 
-自動コントローラーで **Source Control Management (SCM)** として、このレポジトリーを設定して使用するには、このレポジトリーを使用する **Project** を作成する必要があります。
+Automation Controller で **Source Control Management (SCM)** として、このレポジトリーを設定して使用するには、このレポジトリーを使用する **プロジェクト** を作成する必要があります。
 
 ### プロジェクトの作成
 
-* **Resources → Projects** に移動します。フォームで **Add** ボタンをクリックします。フォームを記入します。
+* **リソース → プロジェクト** に移動します。フォームで **追加** ボタンをクリックします。フォームを記入します。
 
  <table>
    <tr>
@@ -84,24 +84,24 @@ Apache Web サーバーをインストールする Playbook が既に **rhel/apa
      <th>値</th>
    </tr>
    <tr>
-     <td>Name</td>
+     <td>名前</td>
      <td>Workshop Project</td>
    </tr>
    <tr>
-     <td>Organization</td>
+     <td>組織</td>
      <td>Default</td>
    </tr>
    <tr>
-     <td>Default Execution Environment</td>
+     <td>実行環境</td>
      <td>Default execution environment</td>
    </tr>
    <tr>
-     <td>Source Control Credential Type</td>
+     <td>ソースコントロールのタイプ</td>
      <td>Git</td>
    </tr>
  </table>
 
- Project 構成に URL を入力します。
+プロジェクト構成に URL を入力します。
 
  <table>
    <tr>
@@ -109,39 +109,39 @@ Apache Web サーバーをインストールする Playbook が既に **rhel/apa
      <th>値</th>
    </tr>
    <tr>
-     <td>Source Control URL</td>
+     <td>ソースコントロールの URL</td>
      <td><code>https://github.com/ansible/workshop-examples.git</code></td>
    </tr>
    <tr>
-     <td>Options</td>
-     <td>Select Clean, Delete, Update Revision on Launch to request a fresh copy of the repository and to update the repository when launching a job.</td>
+     <td>オプション</td>
+     <td>「クリーニング」、「削除」、「起動時のリビジョン更新」にチェック (ジョブ実行の都度、新規で最新のプロジェクトを取得するため)</td>
    </tr>
  </table>
 
-* **SAVE** をクリックします。
+* **保存** をクリックします。
 
 
-新しい Project は、作成後に自動的に同期されます。ただし、これを手動で行うこともできます。**Projects** ビューに移動し、プロジェクトの右側にある円形の矢印 *Sync Project** アイコンをクリックして、プロジェクトを Git リポジトリーと再度同期します。
+新しいプロジェクトは、作成後に自動的に同期されます。ただし、これを手動で行うこともできます。**プロジェクト** ビューに移動し、プロジェクトの右側にある円形の矢印 *プロジェクトの同期** アイコンをクリックして、プロジェクトを Git リポジトリーと再度同期します。
 
-同期ジョブを開始した後、**Jobs** ビューに移動します。Git リポジトリーを更新するための新しいジョブがあります。
+同期ジョブを開始した後、**ジョブ** ビューに移動します。Git リポジトリーを更新するための新しいジョブがあります。
 
 ### ジョブテンプレートの作成とジョブの実行
 
-ジョブテンプレートは、Ansible ジョブを実行するための定義とパラメーターのセットです。ジョブテンプレートは、同じジョブを何度も実行するのに役立ちます。したがって、自動コントローラーから Ansible **Job**を実行する前に、まとめる **Job Template** を作成する必要があります。
+ジョブテンプレートは、Ansible ジョブを実行するための定義とパラメーターのセットです。ジョブテンプレートは、同じジョブを何度も実行するのに役立ちます。したがって、Automation Controller から Ansible **ジョブ**を実行する前に、まとめる **ジョブテンプレート** を作成する必要があります。
 
-* **Inventory**: ジョブが実行するホスト
+* **インベントリー**: ジョブが実行するホスト
 
-* **Credentials** ホストへのログインに必要な認証情報
+* **認証情報** ホストへのログインに必要な認証情報
 
-* **Project**: Playbook の場所
+* **プロジェクト**: Playbook の場所
 
-* **What** 使用する Playbook
+* **Playbook** 使用する Playbook
 
-実際にやってみましょう。**Resources -> Templates** ビューに移動して、*Add** button and choose ** ボタンをクリックし、**Add job template** を選択します。
+実際にやってみましょう。**リソース -> テンプレート** ビューに移動して、*追加** ボタンをクリックし、**新規ジョブテンプレートの追加* を選択します。
 
 > **ヒント**
 >
-> フィールドへの記入を選ぶにあたり、オプションの概要を得るには拡大鏡をクリックすることができます。
+> フィールドへの記入時に、選択式のオプションを設定するには虫眼鏡をクリックします。
 
  <table>
    <tr>
@@ -149,23 +149,23 @@ Apache Web サーバーをインストールする Playbook が既に **rhel/apa
      <th>値</th>
    </tr>
    <tr>
-     <td>Name</td>
+     <td>名前</td>
      <td>Install Apache</td>
    </tr>
    <tr>
-     <td>Job Type</td>
-     <td>Run</td>
+     <td>ジョブタイプ</td>
+     <td>実行</td>
    </tr>
    <tr>
-     <td>Inventory</td>
+     <td>インベントリー</td>
      <td>Workshop Inventory</td>
    </tr>
    <tr>
-     <td>Project</td>
+     <td>プロジェクト</td>
      <td>Workshop Project</td>
    </tr>
    <tr>
-     <td>Execution Environment</td>
+     <td>実行環境</td>
      <td>Default execution environment</td>
    </tr>
    <tr>
@@ -173,22 +173,22 @@ Apache Web サーバーをインストールする Playbook が既に **rhel/apa
      <td><code>rhel/apache/apache_install.yml</code></td>
    </tr>
    <tr>
-     <td>Credentials</td>
+     <td>認証情報</td>
      <td>Workshop Credential</td>
    </tr>
    <tr>
-     <td>Limit</td>
+     <td>制限</td>
      <td>web</td>
    </tr>
    <tr>
-     <td>Options</td>
-     <td>tasks need to run as root so check **Privilege Escalation**</td>
+     <td>オプション</td>
+     <td>「権限昇格」をチェック (root権限での実行が必要なため)</td>
    </tr>
  </table>
 
-* **Save** をクリックします。
+* **保存** をクリックします。
 
-青い **Launch** ボタンを直接クリックするか、Job Templates の概要でロケットをクリックすると、ジョブを開始できます。ジョブテンプレートを起動すると、自動的にジョブの概要が表示され、Playbook の実行をリアルタイムで追跡できます。
+青い **起動** ボタンを直接クリックするか、ジョブテンプレートの一覧でロケットをクリックすると、ジョブを開始できます。ジョブテンプレートを起動すると、自動的にジョブの概要が表示され、Playbook の実行をリアルタイムで追跡できます。
 
 ジョブの詳細
 ![job details](images/job_details.png)
@@ -204,9 +204,9 @@ Apache Web サーバーをインストールする Playbook が既に **rhel/apa
 
 * また、開始時間と終了時間の実行時間が記録されるため、ジョブの実行が実際にどのくらいの時間であったかがわかります。
 
-* **Output** を選択すると、Playbook の実行の出力が表示されます。タスクの下のノードをクリックして、各ノードの各タスクの詳細情報が表示されていることを確認します。
+* **出力** を選択すると、Playbook の実行の出力が表示されます。タスクの下のノードをクリックして、各ノードの各タスクの詳細情報が表示されていることを確認します。
 
-ジョブが終了したら、メインの **Jobs** ビューに移動します。すべてのジョブがここに一覧表示されます。Playbook が実行される前に、Source Control Update が開始されていたことがわかります。これは、起動時に **Project** 用に構成した Git アップデートです。
+ジョブが終了したら、メインの **ジョブ** ビューに移動します。すべてのジョブがここに一覧表示されます。Playbook が実行される前に「ソースコントロールの更新」が実行されていたことがわかります。これは、**プロジェクト** で構成した Git リポジトリの起動時アップデートです。
 
 ### チャレンジラボ: 結果のチェック
 
@@ -218,22 +218,22 @@ Apache Web サーバーをインストールする Playbook が既に **rhel/apa
 
 > **ヒント**
 >
-> `systemctl status httpd` はどうでしょうか。
+> `systemctl status httpd` が使用可能
 
 
 > **警告**
 >
 > **回答を以下に示します**
 
-* **Resources → Inventories** → **Workshop Inventory** に移動します。
+* **リソース → インベントリー** → **Workshop Inventory** に移動します。
 
-* **Host** ビューでは、`node1`、`node2`、`node3` を選択して、**Run Command** をクリックします。
+* **ホスト** 一覧で、`node1`、`node2`、`node3` を選択して、**コマンドの実行** をクリックします。
 
-**Details** ウィンドウで、**Arguments** `systemctl status httpd` で **Module** `command` を選択し、**次へ** をクリックします。
+**詳細** ウィンドウで、**モジュール**に `command` 、**引数**に `systemctl status httpd` を **Module** 指定して、**次へ** をクリックします。
 
-**Execution Environment** ウィンドウで **Default execution environment** を選択し、**Next** をクリックします。
+**実行環境** ウィンドウで **Default execution environment** を選択し、**次へ** をクリックします。
 
-**Machine Credential**ウィンドウで、**Workshop Credential** を選択し、**Launch** をクリックします。
+**認証情報**ウィンドウで、**Workshop Credential** を選択し、**次へ** をクリックし、次のウィンドウで **起動** を選択します。
 
 > **ヒント**
 >
@@ -242,6 +242,6 @@ Apache Web サーバーをインストールする Playbook が既に **rhel/apa
 ---
 **ナビゲーション**
 <br>
-[前の演習](../2.2-cred) - [次の演習](../2.4-surveys)
+[前の演習](../2.2-cred/README.ja.md) - [次の演習](../2.4-surveys/README.ja.md)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

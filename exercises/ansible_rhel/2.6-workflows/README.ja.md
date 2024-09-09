@@ -22,7 +22,7 @@
 
 また、ワークフローは Job Templates に限定されるものではなく、プロジェクトやインベントリーの更新を含めることもできます。
 
-これにより、Ansible 自動コントローラーの新しいアプリケーションが可能になります。さまざまなジョブテンプレートを相互に構築できます。たとえば、ネットワーキングチームは、独自のコンテンツを使用して、独自のGitリポジトリに、さらには独自のインベントリを対象に Playbook を作成します。一方、運用チームには、独自のリポジトリー、Playbook、およびインベントリーがあります。
+これにより、Ansible Automation Controller による新たな応用として、さまざまなジョブテンプレートを相互に構築することができるようになります。たとえば、ネットワーキングチームは、独自のコンテンツを使用して、独自のGitリポジトリに、独自のインベントリを対象とした Playbook を作成します。一方、運用チームにも、独自のリポジトリー、Playbook、およびインベントリーを持っているような状況に適用できます。
 
 このラボでは、ワークフローを設定する方法を説明します。
 
@@ -33,27 +33,27 @@
 組織に 2 つの部門があるとします。
 
 * `webops` という独自の Git ブランチで Playbook を開発している Web 運用チーム
-* `webdev` という独自の Git ブランチでプレイブックを開発しているWeb開発者チーム。
+* `webdev` という独自の Git ブランチで Playbook を開発しているWeb開発者チーム。
 
-デプロイする新しい Node.js サーバーがある場合は、次の 2 つのことが必要です。
+新しい Node.js サーバーをデプロイする場合は、次の 2 つのことが必要です。
 
 #### Web 運用チーム
 
-* `httpd`、`firewalld`、および `node.js` インストールし、`SELinux` 設定を定義し、ファイアウォールを開き、`httpd` および `node.js` を起動する必要があります。
+* `httpd`、`firewalld`、および `node.js` をインストールし、`SELinux` 設定を定義し、ファイアウォールを開き、`httpd` および `node.js` を起動する。
 
 #### Web 開発者チーム
 
-* Web アプリケーションの最新バージョンをデプロイし、`node.js` を再起動する必要があります。
+* Web アプリケーションの最新バージョンをデプロイし、`node.js` を再起動する。
 
 言い換えると、Web 運用チームは、アプリケーションのデプロイメント用にサーバーを準備し、Web 開発者チームがそのサーバー上にアプリケーションをデプロイします。
 
 ---
 
-作業を少し簡単にするために、必要なものはすべて Github リポジトリーに既に存在します。Playbook、JSP ファイルなどです。接着するだけです。
+作業を少し簡単にするために、必要なものはすべて Github リポジトリーに既に用意されています（Playbook、JSP ファイルなど）。ここではこれらを繋げるだけです。
 
 > **注意**
 >
-> この例では、別々のチームのコンテンツに同じレポジトリーの異なる 2 つのブランチを使用します。実際には、Source Contorol レポジトリーの構造は、ファクターによってことなります。
+> この例では、別々のチームのコンテンツに同じレポジトリーの異なる 2 つのブランチを使用します。実際には、Source Contorol レポジトリーの構造は状況にによって様々に異なります。
 
 ### プロジェクトのセットアップ
 
@@ -61,9 +61,9 @@
 
 > **警告**
 >
-> ユーザー **wweb** としてログインしている場合は、*admin** としてログインします。
+> ユーザー **wweb** としてログインしている場合は、**admin** としてログインします。
 
-**Resources** -> **Projects** 内で、**Add** ボタンをクリックして、Web オペレーションチームのプロジェクトを作成します。以下のようにフォームに移動します。
+**リソース** -> **プロジェクト** 内で、**追加** ボタンをクリックして、Web オペレーションチームのプロジェクトを作成します。以下のようにフォームに移動します。
 
 <table>
   <tr>
@@ -71,39 +71,39 @@
     <th>値</th>
   </tr>
   <tr>
-    <td>Name</td>
+    <td>名前</td>
     <td>Webops Git Repo</td>
   </tr>
   <tr>
-    <td>Organization</td>
+    <td>組織</td>
     <td>Default</td>
   </tr>
   <tr>
-    <td>Default Execution Environment</td>
+    <td>実行環境</td>
     <td>Default execution environment</td>
   </tr>
   <tr>
-    <td>Source Control Credential Type</td>
+    <td>ソースコントロールのタイプ</td>
     <td>Git</td>
   </tr>
   <tr>
-    <td>Source Control URL</td>
+    <td>ソースコントロールの URL</td>
     <td><code>https://github.com/ansible/workshop-examples.git</code></td>
   </tr>
   <tr>
-    <td>Source Control Branch/Tag/Commit</td>
+    <td>ソースコントロールブランチ/タグ/コミット</td>
     <td><code>webops</code></td>
   </tr>
   <tr>
-    <td>Options</td>
-    <td><ul><li>✓ Clean</li><li>✓ Delete</li><li>✓ Update Revision on Launch</li></ul></td>
+    <td>オプション</td>
+    <td><ul><li>✓ クリーニング</li><li>✓ 削除</li><li>✓ 起動時のリビジョン更新</li></ul></td>
   </tr>
 </table>
 
-**Save** をクリックします。
+**保存** をクリックします。
 
 ---
-**Resources** -> **Projects** 内で、**Add** ボタンをクリックして、Web 開発者チームのプロジェクトを作成します。以下のようにフォームに移動します。
+**リソース** -> **プロジェクト** 内で、**追加** ボタンをクリックして、Web 開発者チームのプロジェクトを作成します。以下のようにフォームに移動します。
 
 <table>
   <tr>
@@ -111,42 +111,42 @@
     <th>値</th>
   </tr>
   <tr>
-    <td>Name</td>
+    <td>名前</td>
     <td>Webdev Git Repo</td>
   </tr>
   <tr>
-    <td>Organization</td>
+    <td>組織</td>
     <td>Default</td>
   </tr>
   <tr>
-    <td>Default Execution Environment</td>
+    <td>実行環境</td>
     <td>Default execution environment</td>
   </tr>
   <tr>
-    <td>Source Control Credential Type</td>
+    <td>ソースコントロールのタイプ</td>
     <td>Git</td>
   </tr>
   <tr>
-    <td>Source Control URL</td>
+    <td>ソースコントロールの URL</td>
     <td><code>https://github.com/ansible/workshop-examples.git</code></td>
   </tr>
   <tr>
-    <td>Source Control Branch/Tag/Commit</td>
+    <td>ソースコントロールブランチ/タグ/コミット</td>
     <td><code>webdev</code></td>
   </tr>
   <tr>
-    <td>Options</td>
-    <td><ul><li>✓ Clean</li><li>✓ Delete</li><li>✓ Update Revision on Launch</li></ul></td>
+    <td>オプション</td>
+    <td><ul><li>✓ クリーニング</li><li>✓ 削除</li><li>✓ 起動時のリビジョン更新</li></ul></td>
   </tr>
 </table>
 
-**Save** をクリックします。
+**保存** をクリックします。
 
 ### ジョブテンプレートのセットアップ
 
-次に、「通常」ジョブの場合と同じように、2 つのジョブテンプレートを作成する必要があります。
+次に、通常のジョブの場合と同じように、2 つのジョブテンプレートを作成する必要があります。
 
-**Resources** -> **Templates** に移動し、**Add** ボタンをクリックして、**Add job template** を選択します。
+**リソース** -> **テンプレート** に移動し、**追加** ボタンをクリックして、**新規ジョブテンプレートの追加** を選択します。
 
   <table>
     <tr>
@@ -154,23 +154,23 @@
       <th>値</th>
     </tr>
     <tr>
-      <td>Name</td>
+      <td>名前</td>
       <td>Web App Deploy</td>
     </tr>
     <tr>
-      <td>Job Type</td>
-      <td>Run</td>
+      <td>ジョブタイプ</td>
+      <td>実行</td>
     </tr>
     <tr>
-      <td>Inventory</td>
+      <td>インベントリー</td>
       <td>Workshop Inventory</td>
     </tr>
     <tr>
-      <td>Project</td>
+      <td>プロジェクト</td>
       <td>Webops Git Repo</td>
     </tr>
     <tr>
-      <td>Execution Environment</td>
+      <td>実行環境</td>
       <td>Default execution environment</td>
     </tr>
     <tr>
@@ -178,24 +178,24 @@
       <td><code>rhel/webops/web_infrastructure.yml</code></td>
     </tr>
     <tr>
-      <td>Credentials</td>
+      <td>認証情報</td>
       <td>Workshop Credential</td>
     </tr>
     <tr>
-      <td>Limit</td>
+      <td>制限</td>
       <td>web</td>
     </tr>
     <tr>
-      <td>Options</td>
-      <td>✓ Privilege Escalation</td>
+      <td>オプション</td>
+      <td>✓ 権限昇格</td>
     </tr>
   </table>
 
-**Save** をクリックします。
+**保存** をクリックします。
 
 ---
 
-**Resources** -> **Templates** に移動し、**Add** ボタンをクリックして、**Add job template** を選択します。
+**リソース** -> **テンプレート** に移動し、**追加** ボタンをクリックして、**新規ジョブテンプレートの追加** を選択します。
 
   <table>
     <tr>
@@ -203,23 +203,23 @@
       <th>値</th>
     </tr>
     <tr>
-      <td>Name</td>
+      <td>名前</td>
       <td>Node.js Deploy</td>
     </tr>
     <tr>
-      <td>Job Type</td>
-      <td>Run</td>
+      <td>ジョブタイプ</td>
+      <td>実行</td>
     </tr>
     <tr>
-      <td>Inventory</td>
+      <td>インベントリー</td>
       <td>Workshop Inventory</td>
     </tr>
     <tr>
-      <td>Project</td>
+      <td>プロジェクト</td>
       <td>Webdev Git Repo</td>
     </tr>
     <tr>
-      <td>Execution Environment</td>
+      <td>実行環境</td>
       <td>Default execution environment</td>
     </tr>
     <tr>
@@ -227,20 +227,20 @@
       <td><code>rhel/webdev/install_node_app.yml</code></td>
     </tr>
     <tr>
-      <td>Credentials</td>
+      <td>認証情報</td>
       <td>Workshop Credential</td>
     </tr>
     <tr>
-      <td>Limit</td>
+      <td>制限</td>
       <td>web</td>
     </tr>
     <tr>
-      <td>Options</td>
-      <td>✓ Privilege Escalation</td>
+      <td>オプション</td>
+      <td>✓ 権限昇格</td>
     </tr>
   </table>
 
-**Save** をクリックします。
+**保存** をクリックします。
 
 > **ヒント**
 >
@@ -248,64 +248,64 @@
 
 ### ワークフローのセットアップ
 
-ワークフローは **Template** ビューで設定されます。テンプレートを追加するときに、**Add job template** と **Add workflow template** のどちらかを選択できることに気付いたかもしれません。
+ワークフローは **テンプレート** ビューで設定されます。テンプレートを追加するときに、**新規ジョブテンプレートの追加** と **ワークフローテンプレートの追加** のどちらかを選択できることに気付いたかもしれません。
 
-**Resources** -> **Templates** に移動し、**Add** ボタンをクリックして、**Add job template** を選択します。
+**リソース** -> **テンプレート** に移動し、**追加** ボタンをクリックして、**ワークフローテンプレートの追加** を選択します。
 
   <table>
     <tr>
-      <td><b>Name</b></td>
+      <td><b>名前</b></td>
       <td>Deploy Webapp Server</td>
     </tr>
     <tr>
-      <td><b>Organization</b></td>
+      <td><b>組織</b></td>
       <td>Default</td>
     </tr>
   </table>
 
-**Save** をクリックします。
+**保存** をクリックします。
 
-テンプレートを保存すると、**Workflow Visualizer** が開き、ワークフローを作成できます。テンプレートの詳細ページのボタンを使用して、メニューから **Visualizer** を選択して、後で **Workflow Visualizer** を再度開くことができます。
+テンプレートを保存すると、**Workflow Visualizer** が開き、ワークフローを作成できます。テンプレートの詳細ページのボタンを使用して、メニューから **ビジュアライザー** を選択して、後で **Workflow Visualizer** を再度開くことができます。
 
   ![start](images/start.png)
 
-**Start** ボタンをクリックすると、**Add Node** ウィンドウが開きます。**Job Template** を選択して、ノードタイプで、ノードにアクションを割り当てます。
+**開始** ボタンをクリックすると、**ノードの追加** ウィンドウが開きます。**ジョブテンプレート** を選択して、ノードタイプで、ノードにアクションを割り当てます。
 
-**Web App Deploy** ジョブテンプレートを選択し、**Save** をクリックします。
+**Web App Deploy** ジョブテンプレートを選択し、**保存** をクリックします。
 
-  ![Add Node](images/add_node.png)
+  ![ノードの追加](images/add_node.png)
 
-新しいノードが表示され、ジョブテンプレートの名前で **START** ボタンに接続されます。ノードの上にマウスポインターに移動し、ノードの詳細 (+)、ノードの詳細 (i)の表示(i)、ノードの編集(pencil)、利用可能なノード(chain)へのリンク、ノード(trash bin)を削除します。
+新しいノードが表示され、ジョブテンプレートの名前で **開始** ボタンに接続されます。ノードの上にマウスポインターに移動し、ノードの追加 (+)、ノードの詳細表示 (i)、ノードの編集(鉛筆)、利用可能なノードへのリンク(鎖)、ノードの削除(ゴミ箱)を実行できます。
 
   ![workflow node](images/workflow_node.png)
 
 ノードにマウスをかざし、(+) 記号をクリックして新規ノードを追加します。
-* **Run Type** には **On Success**（デフォルト）を選択し、**Next** をクリックします。
+* **実行タイプ** には **成功時**（デフォルト）を選択し、**次へ** をクリックします。
 
 > **ヒント**
 >
-> 実行のタイプにより、より複雑なワークフローが可能になります。Playbook 実行に成功した実行パスや失敗した実行パスなど、各種パスのレイアウトを行うことができます。
+> 実行タイプにより、より複雑なワークフローが可能になります。Playbook 実行に成功した実行パスや失敗した実行パスなど、各種パスのレイアウトを行うことができます。
 
-**Node Type** については、**Job Template** (デフォルト) を選択し、**Node.js Deploy** ジョブテンプレートを選択します。
-**Save** をクリックします。
+**ノードタイプ** については、**ジョブテンプレート** (デフォルト) を選択し、**Node.js Deploy** ジョブテンプレートを選択します。
+**保存** をクリックします。
 
-  ![Add Nodejs](images/add_node_nodejs.png)
+  ![ノードの追加js](images/add_node_nodejs.png)
 
-**Visualizier** ビューの右上にある **Save** をクリックします。
+**ビジュアライザー** ビューの右上にある **保存** をクリックします。
 
 > **ヒント**
 >
-**Visualizer** には、より高度なワークフローを設定するためのオプションがありますので、ドキュメントをご参照ください。
+**ビジュアライザー** には、より高度なワークフローを設定するためのオプションがありますので、ドキュメントをご参照ください。
 
 ### ワークフローの起動
 
-**Deploy Webapp Server** Details ページから、ワークフローを **Launch** します。
+**Deploy Webapp Server** 詳細 ページから、ワークフローを **起動** します。
 
   ![起動](images/launch.png)
 
-Jobs > Deploy Webapp Server Output にワークフローの実行が表示されていることに注意してください。通常のジョブテンプレートのジョブ実行とは異なり、ジョブが完了しても Playbook の出力はありませんが、ジョブが完了するまでの時間が表示されています。実際の Playbook の実行内容を見たい場合は、詳細を確認したいノードにカーソルを合わせてクリックします。ジョブの詳細表示の中で、**Output** メニューを選択すると、Playbook の出力が表示されます。Deploy WebappServer** ワークフローの **Output** ビューに戻りたい場合は、Views -> Jobs -> **XX - Deploy Webapp Server** で Output の概要に戻ることができます。 
+ジョブ > Deploy Webapp Server 出力 にワークフローの実行が表示されています。通常のジョブテンプレートのジョブ実行とは異なり、ジョブが完了しても Playbook の出力はありませんが、ジョブが完了するまでの時間が表示されています。実際の Playbook の実行内容を見たい場合は、詳細を確認したいノードにカーソルを合わせてクリックします。ジョブの詳細表示の中で、**出力** メニューを選択すると、Playbook の出力が表示されます。 **Deploy WebappServer** ワークフローの **出力** ビューに戻りたい場合は、Views -> ジョブ -> **XX - Deploy Webapp Server** で 出力 の概要に戻ることができます。 
 
-注記: `XX` はジョブ実行の数に置き換えます。
+注記: `XX` はジョブ実行IDに置き換えます。
 
 ![jobs view of workflow](images/job_workflow.png)
 
@@ -322,6 +322,6 @@ Hello World
 ---
 **ナビゲーション**
 <br>
-[前の演習](../2.5-rbac) - [次の演習](../2.7-wrap)
+[前の演習](../2.5-rbac/README.ja.md) - [次の演習](../2.7-wrap/README.ja.md)
 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)

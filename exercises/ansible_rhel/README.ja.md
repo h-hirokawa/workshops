@@ -9,9 +9,9 @@
 
 Ansible Automation
 に慣れていない方向けに、このワークショップは、初歩的なコマンドライン操作の基本理解から始まり、学習したことを使ってエンタープライズユースケースに
-Ansible 自動コントローラーを実装するという、2 つの部分で構成されています。まず始めにはじめての Ansible Playbook
+Ansible Automation Controller を実装するという、2 つの部分で構成されています。まず始めにはじめての Ansible Playbook
 を作成し、Jinja テンプレートの操作を行い、高レベルの Ansible
-ロールを実装します。次に、自動コントローラーの使用を開始し、インベントリーおよび認証情報の管理、プロジェクト、ジョブテンプレート、サーベイ、ワークフローなどについて学習します。
+ロールを実装します。次に、Automation Controller の使用を開始し、インベントリーおよび認証情報の管理、プロジェクト、ジョブテンプレート、サーベイ、ワークフローなどについて学習します。
 
 このラボを完了すると、自動化要件のために Ansible を使い始める準備が整います。
 
@@ -61,7 +61,7 @@ Automation](../../decks/ansible_rhel.pdf)
 
 ## セクション 2 - Ansible Automation Platform の演習
 
-* [演習 2.1 - 自動コントローラーの概要](2.1-intro/README.ja.md)
+* [演習 2.1 - Automation Controller の概要](2.1-intro/README.ja.md)
 * [演習 2.2 - インベントリー、認証情報、およびアドホックコマンド](2.2-cred/README.ja.md)
 * [演習 2.3 - プロジェクトとジョブテンプレート](2.3-projects/README.ja.md)
 * [演習 2.4 - Surveys](2.4-surveys/README.ja.md)
