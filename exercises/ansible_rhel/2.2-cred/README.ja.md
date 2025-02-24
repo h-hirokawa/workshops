@@ -19,7 +19,7 @@ Ansibleオートメーションコントローラーのインベントリは、�
 ### 2. 'Workshop Inventory'の探索
 'Workshop Inventory'は、典型的な静的インベントリを表すものとして、ラボ環境にプリロードされています：
 
-- **インベントリへのアクセス:** Web UIの `リソース → インベントリ` に移動し、'Workshop Inventory'を選択します。
+- **インベントリへのアクセス:** Web UIの `Automation Execution → Infrastructure → インベントリ` に移動し、'Workshop Inventory'を選択します。
 - **ホストの表示:** 'ホスト'ボタンをクリックすると、従来のAnsibleインベントリファイルで見つかるかもしれないプリロードされたホスト構成が表示されます。例えば：
 
 
@@ -35,7 +35,7 @@ web2 ansible_host=33.44.55.66
 ### 3. マシン認証情報の理解
 管理されたホストへのSSH接続を確立するために、マシン認証情報は不可欠です：
 
-- **認証情報へのアクセス:** メインメニューから `リソース → 認証情報` を選択し、'Workshop Credentials'を選択します。
+- **認証情報へのアクセス:** メインメニューから `Automation Execution → Infrastructure → 認証情報` を選択し、'Workshop Credentials'を選択します。
 - **認証情報の詳細:** 'Workshop Credentials'は、以下のようなパラメータで事前設定されています：
 - **認証情報タイプ:** マシン、SSHアクセス用。
 - **ユーザー名:** 事前定義されたユーザー、例えば `ec2-user`。

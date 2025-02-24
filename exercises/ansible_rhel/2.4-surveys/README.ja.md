@@ -54,7 +54,7 @@ Playbook とロールは、`apache_install.yml` Playbook と同じ Github レポ
 
 #### テンプレートの作成
 
-* **リソース → テンプレート** に移動し、**追加** ボタンをクリックして、**新規ジョブテンプレートの追加** を選択します。
+* **Automation Execution → テンプレート** に移動し、**テンプレートの作成** ボタンをクリックして、**ジョブテンプレートの作成** を選択します。
 
 * 次の情報を入力します。
 
@@ -71,17 +71,6 @@ Playbook とロールは、`apache_install.yml` Playbook と同じ Github レポ
     <td>ジョブタイプ</td>
     <td>実行</td>
   </tr>
-  <tr>
-    <th>パラメーター</th>
-    <th>値</th>
-  </tr>
-  <tr>
-    <td>名前</td>
-    <td>Install Apache</td>
-  </tr>
-  <tr>
-    <td>ジョブタイプ</td>
-    <td>実行</td>
   </tr>
   <tr>
     <td>インベントリー</td>
@@ -92,12 +81,12 @@ Playbook とロールは、`apache_install.yml` Playbook と同じ Github レポ
     <td>Workshop Project</td>
   </tr>
   <tr>
-    <td>実行環境</td>
-    <td>Default execution environment</td>
-  </tr>
-  <tr>
     <td>Playbook</td>
    <td><code>rhel/apache/apache_role_install.yml</code></td>
+  </tr>
+  <tr>
+    <td>実行環境</td>
+    <td>Default execution environment</td>
   </tr>
   <tr>
     <td>認証情報</td>
@@ -113,7 +102,7 @@ Playbook とロールは、`apache_install.yml` Playbook と同じ Github レポ
   </tr>
 </table>
 
-* **保存** をクリックします。
+* **ジョブテンプレートの作成** をクリックします。
 
 > **警告**
 >
@@ -121,7 +110,7 @@ Playbook とロールは、`apache_install.yml` Playbook と同じ Github レポ
 
 #### Survey の追加
 
-* テンプレートで **Survey** タブをクリックして、**追加** ボタンをクリックします。
+* テンプレートで **Survey** タブをクリックして、**Create survey question** ボタンをクリックします。
 
 * 次の情報を入力します。
 
@@ -131,27 +120,26 @@ Playbook とロールは、`apache_install.yml` Playbook と同じ Github レポ
     <th>値</th>
   </tr>
   <tr>
-    <td>質問</td>
+    <td>Question</td>
     <td>First Line</td>
   </tr>
   <tr>
-    <td>回答の変数名</td>
+    <td>Answer variable name</td>
     <td>first_line</td>
   </tr>
   <tr>
-    <td>回答タイプ</td>
-    <td>テキスト</td>
+    <td>Answer type</td>
+    <td>Text</td>
   </tr>
 </table>
 
-* **保存** をクリックします。
-* **追加** ボタンをクリックします。
+* **Create survey question** をクリックします。
 
-同じ方法で、2 番目の **質問** を追加します。
+同じ方法で、2 番目の Survey を追加します。
 
 <table>
   <tr>
-    <th>パラメーター</th>
+    <th>Question</th>
     <th>値</th>
   </tr>
   <tr>
@@ -159,24 +147,24 @@ Playbook とロールは、`apache_install.yml` Playbook と同じ Github レポ
     <td>Second Line</td>
   </tr>
   <tr>
-    <td>回答の変数名</td>
+    <td>Answer variable name</td>
     <td>second_line</td>
   </tr>
   <tr>
-    <td>回答タイプ</td>
-    <td>テキスト</td>
+    <td>Answer type</td>
+    <td>Text</td>
   </tr>
 </table>
 
-* **保存** をクリックします。
+* **Create survey question** をクリックします。
 
-* トグルをクリックして、**Survey の有効化** に切り替えます。
+* トグルをクリックして、**Survey enabled** (Survey有効状態) に切り替えます。
 
 ### テンプレートの起動
 
-**詳細** タブを選択し、**起動** ボタンをクリックしてジョブテンプレート **Create index.html** を起動します。
+**詳細** タブを選択し、**テンプレートの起動** ボタンをクリックしてジョブテンプレート **Create index.html** を起動します。
 
-実際に起動する前に、Survey により、**First Line** と **Second Line** が求められます。好きなテキストを入力して、**次へ** をクリックします。次のウィンドウに値が表示されます。問題がなければ、**実行** をクリックしてジョブを実行します。
+実際に起動する前に、Survey により、**First Line** と **Second Line** が求められます。好きなテキストを入力して、**Next** をクリックします。次のウィンドウに値が表示されます。問題がなければ、**Finish** をクリックしてジョブを実行します。
 
 ジョブが完了したら、Apache ホームページを確認します。コントロールホストの SSH コンソールで、`node1` の以下に対して `curl` を実行します。
 

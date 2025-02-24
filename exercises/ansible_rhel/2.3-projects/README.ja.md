@@ -76,7 +76,7 @@ Automation Controller で **Source Control Management (SCM)** として、この
 
 ### プロジェクトの作成
 
-* **リソース → プロジェクト** に移動します。フォームで **追加** ボタンをクリックします。フォームを記入します。
+* **Automation Execution → プロジェクト** に移動します。フォームで **プロジェクトの作成** ボタンをクリックし、フォームを記入します。
 
  <table>
    <tr>
@@ -114,7 +114,7 @@ Automation Controller で **Source Control Management (SCM)** として、この
    </tr>
    <tr>
      <td>オプション</td>
-     <td>「クリーニング」、「削除」、「起動時のリビジョン更新」にチェック (ジョブ実行の都度、新規で最新のプロジェクトを取得するため)</td>
+     <td>「Clean」、「削除」、「Update revision on launch」にチェック (ジョブ実行の都度、新規で最新のプロジェクトを取得するため)</td>
    </tr>
  </table>
 
@@ -137,7 +137,7 @@ Automation Controller で **Source Control Management (SCM)** として、この
 
 * **Playbook** 使用する Playbook
 
-実際にやってみましょう。**リソース -> テンプレート** ビューに移動して、*追加** ボタンをクリックし、**新規ジョブテンプレートの追加* を選択します。
+実際にやってみましょう。**リソース -> テンプレート** ビューに移動して、**テンプレートの作成** ボタンをクリックし、**ジョブテンプレートの作成** を選択します。
 
 > **ヒント**
 >
@@ -165,12 +165,12 @@ Automation Controller で **Source Control Management (SCM)** として、この
      <td>Workshop Project</td>
    </tr>
    <tr>
-     <td>実行環境</td>
-     <td>Default execution environment</td>
-   </tr>
-   <tr>
      <td>Playbook</td>
      <td><code>rhel/apache/apache_install.yml</code></td>
+   </tr>
+   <tr>
+     <td>実行環境</td>
+     <td>Default execution environment</td>
    </tr>
    <tr>
      <td>認証情報</td>
@@ -186,9 +186,9 @@ Automation Controller で **Source Control Management (SCM)** として、この
    </tr>
  </table>
 
-* **保存** をクリックします。
+* **ジョブテンプレートの作成** をクリックします。
 
-青い **起動** ボタンを直接クリックするか、ジョブテンプレートの一覧でロケットをクリックすると、ジョブを開始できます。ジョブテンプレートを起動すると、自動的にジョブの概要が表示され、Playbook の実行をリアルタイムで追跡できます。
+**テンプレートの起動** ボタンを直接クリックするか、ジョブテンプレートの一覧でロケットをクリックすると、ジョブを開始できます。ジョブテンプレートを起動すると、自動的にジョブの概要が表示され、Playbook の実行をリアルタイムで追跡できます。
 
 ジョブの詳細
 ![job details](images/job_details.png)
@@ -225,15 +225,15 @@ Automation Controller で **Source Control Management (SCM)** として、この
 >
 > **回答を以下に示します**
 
-* **リソース → インベントリー** → **Workshop Inventory** に移動します。
+* **Automation Execution** → **Insrastructure** → **インベントリー** → **Workshop Inventory** に移動します。
 
-* **ホスト** 一覧で、`node1`、`node2`、`node3` を選択して、**コマンドの実行** をクリックします。
+* **ホスト** 一覧で、`node1`、`node2`、`node3` を選択して、**Run command** をクリックします。
 
-**詳細** ウィンドウで、**モジュール**に `command` 、**引数**に `systemctl status httpd` を **Module** 指定して、**次へ** をクリックします。
+**詳細** ウィンドウで、**Module**に `command` 、**Arguments**に `systemctl status httpd` を 指定して、**Next** をクリックします。
 
-**実行環境** ウィンドウで **Default execution environment** を選択し、**次へ** をクリックします。
+**実行環境** ウィンドウで **Default execution environment** を選択し、**Next** をクリックします。
 
-**認証情報**ウィンドウで、**Workshop Credential** を選択し、**次へ** をクリックし、次のウィンドウで **起動** を選択します。
+**認証情報**ウィンドウで、**Workshop Credential** を選択し、**Next** をクリックし、次のウィンドウで **Finish** を選択します。
 
 > **ヒント**
 >

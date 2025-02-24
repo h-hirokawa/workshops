@@ -90,24 +90,24 @@
 
 このラボでは Ansible Automation Controllerを使用して、上記のデプロイを行なっていきます。
 
-**リソース** -> **インベントリー** 内で、「Workshop Inventory」を選択します。
+**Automation Execution** -> **Infrastructure** -> **インベントリー** 内で、「Workshop Inventory」を選択します。
 
-**グループ** タブで、**追加** ボタンをクリックして、`Webserver` というラベルが付けられた新規インベントリーグループを作成し、**保存** をクリックします。
+**グループ** タブで、**グループの作成** ボタンをクリックして、`Webserver` という名前のグループを作成します。
 
-`Webserver` グループの **詳細** タブで、**編集** をクリックします。**変数** テキストボックスでは、`stage` という値を持つ変数 `dev` を定義し、**保存** をクリックします。
+`Webserver` グループの **詳細** タブで、**Edit group** をクリックします。**変数** テキストボックスでは、`stage` という値を持つ変数 `dev` を定義し、**保存** をクリックします。
 
 ```yaml
 ---
 stage: dev
 ```
 
-`Webserver` インベントリーの **詳細** タブで、**ホスト** タブをクリックし、**追加** および **既存ホストの追加** ボタンをクリックします。`Webserver` インベントリーに含まれるホストとして、`node1`、`node2`、および `node3` を選択します。
+`Webserver` グループの **詳細** から **ホスト** タブをクリックし、**Add exiting host** ボタンをクリックします。`Webserver` インベントリーに含まれるホストとして、`node1`、`node2`、および `node3` を選択します。
 
 
-**リソース** -> **インベントリー** 内で、`Workshop Inventory` を選択し、**ホスト** タブをクリックして、`node2` をクリックします。`編集` をクリックし、**変数** ウィンドウで `stage: prod` 変数を追加します。これは、Playbook の実行時に変数にアクセスする方法により、インベントリー変数を上書きします。
+**Automation Execution** -> **Infrastructure** -> **インベントリー** 内で、`Workshop Inventory` を選択し、**ホスト** タブをクリックして、`node2` をクリックします。`編集` をクリックし、**変数** ウィンドウで `stage: prod` 変数を追加します。これは、Playbook の実行時に変数にアクセスする方法により、インベントリー変数を上書きします。
 
 
-**変数** テキストボックスで、`stage` という値を持つ `prod` というラベルが付いた変数を定義し、**保存** をクリックします。
+**変数** テキストボックスで、`stage` という値を持つ `prod` というラベルが付いた変数を定義して、保存します。
 
 ```yaml
 ---
@@ -116,11 +116,11 @@ stage: prod
 ```
 > **ヒント**
 >
-> YAML の開始をマークする 3 つのダッシュと `ansible_host` の行を所定の位置に配置するようにしてください。
+> `ansible_host` の行は削除しないようにしてください。
 
 ### テンプレートの作成
 
-**リソース** -> **テンプレート** 内で、**追加** ボタンと **新規ジョブテンプレートの追加** をクリックし、以下のように入力します。
+次に新規ジョブテンプレートをクリックし、以下のように作成します。
 
   <table>
     <tr>
@@ -144,19 +144,19 @@ stage: prod
       <td>Workshop Project</td>
     </tr>
     <tr>
-      <td>実行環境</td>
-      <td>Default execution environment</td>
-    </tr>
-    <tr>
       <td>Playbook</td>
       <td>rhel/apache/webcontent.yml</td>
+    </tr>
+    <tr>
+      <td>実行環境</td>
+      <td>Default execution environment</td>
     </tr>
     <tr>
       <td>認証情報</td>
       <td>Workshop Credential</td>
     </tr>
     <tr>
-      <td>変数</td>
+      <td>Extra variables</td>
       <td>---<br>dev_content: "default dev content"<br>prod_content: "default prod content"</td>
     </tr>
     <tr>
@@ -172,7 +172,7 @@ stage: prod
 
 ### 結果の確認
 
-今回は、Ansibleコマンドラインを使って結果を確認します。各ノードから Web コンテンツを取得するために uri モジュールを実行し、Ansible Playbook (`check_url.yml`) によってオーケストレーションされます。
+今回は、Ansibleコマンドラインを使って結果を確認しましょう。各ノードから Web コンテンツを取得するために uri モジュールを実行し、Ansible Playbook (`check_url.yml`) を作成します。
 
 > **ヒント**
 >
@@ -220,7 +220,7 @@ ok: [node3] => {
 ### Survey の追加
 
 * Survey をテンプレートに追加して、変数 `dev_content` および `prod_content` の変更を可能にします。
-* テンプレート中の **Survey** タブをクリックして、**追加** ボタンをクリックします。
+* テンプレート中の **Survey** タブをクリックして、Questionを追加します。
 * 以下の情報を入力してください。
 
 <table>
@@ -229,23 +229,20 @@ ok: [node3] => {
     <th>値</th>
   </tr>
   <tr>
-    <td>質問</td>
+    <td>Question</td>
     <td>dev_contentの値は?</td>
   </tr>
   <tr>
-    <td>回答の変数名</td>
+    <td>Answer variable name</td>
     <td>dev_content</td>
   </tr>
   <tr>
-    <td>回答タイプ</td>
-    <td>テキスト</td>
+    <td>Answer type</td>
+    <td>Text</td>
   </tr>
 </table>
 
-* **保存** をクリックします。
-* **追加** ボタンをクリックします。
-
-同じ方法で、2 番目の質問を追加します。
+同じように、2 番目の質問を追加します。
 
 <table>
   <tr>
@@ -253,31 +250,27 @@ ok: [node3] => {
     <th>値</th>
   </tr>
   <tr>
-    <td>質問</td>
+    <td>Question</td>
     <td>prod_contentの値は?</td>
   </tr>
   <tr>
-    <td>回答の変数名</td>
+    <td>Answer variable name</td>
     <td>prod_content</td>
   </tr>
   <tr>
-    <td>回答タイプ</td>
-    <td>テキスト</td>
+    <td>Answer type</td>
+    <td>Text</td>
   </tr>
 </table>
 
-* **保存** をクリックします。
-* トグルをクリックして Surveyを **有効** に切り替えます。
+* トグルをクリックして Survey enabled に切り替えます。
 
-次にパーミッションを追加して、テンプレート **Create Web Content** を `wweb` が実行できるようにします。
+次にRoleを割り当てて、テンプレート **Create Web Content** を `wweb` が実行できるようにします。
 
-* **リソース** -> **テンプレート** 内で、**Create Web Content** をクリックし、ユーザー `wweb` への **アクセス** を追加し、テンプレートを実行します。
-  * **リソースタイプの選択** -> **ユーザー**をクリックし、**次へ** をクリックします。
-  * **リストからアイテムの選択** -> `wweb` チェックボックスを選択して、**次へ** をクリックします。
-  * **適用するロールの選択** -> **実行** チェックボックスを選択して、**保存** をクリックします。
+* テンプレートの **User Access** タブから `wweb` にテンプレート実行ロール(JobTemplate Execute)を割り当て、テンプレートを実行できるようにします。
 * ユーザー `wweb` として survey を実行します。
   * Ansible Automation Controller のユーザー `admin` からログアウトします。
-  * `wweb` としてログインし、**リソース** -> **テンプレート** に移動して、**Create Web Content** テンプレートを実行します。
+  * `wweb` としてログインし、**Create Web Content** テンプレートを実行します。
 
 再び、オートメーションコントローラーのホストから再度結果を確認します。
 
